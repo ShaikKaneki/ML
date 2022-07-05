@@ -11,20 +11,19 @@ y=np.array(df2.iloc[0: ,-1])
 print(y)
 print("the maximum specific hypothesis: ['0','0','0','0','0','0']")
 print("the maximum general hypothesis: ['?','?','?','?','?','?']")
-m,n=X.shape
+m,n=x.shape
 print(m,n)
 print("the initialization of hypothesis:")
 hypothesis=['0']*(n-1)
 print(hypothesis)
-
 print("Find-s:for the train dataset: ")
-print(X)
+print(x)
 for i in range(0,m):
  if y[i]=='yes':
   for j in range(0,n):
-   if X[i][j]!=hypothesis[j]:
+   if x[i][j]!=hypothesis[j]:
      if hypothesis[j]=='0':
-        hypothesis=X[i, :n]
+        hypothesis=x[i, :n]
      else:
         hypothesis[j]='?'
 print("the hypothesis {0} for the instance {0}=".format(i+1),hypothesis)

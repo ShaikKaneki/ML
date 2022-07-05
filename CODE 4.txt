@@ -5,7 +5,7 @@ import numpy as np
 import io
 df2=pd.read_csv(io.BytesIO(uploaded['labml.csv']),header=None )
 print(df2)
-df2.loc[0:6]
+df2.loc[0:,6]
 df2.iloc[0 :,-1]
 x=np.array(df2.iloc[0: , :-1])
 print(x)
@@ -23,7 +23,7 @@ def Candi(x,y):
  general_h=[]
  print(g_h,"\n")
  for i in range(m):
-  if y[i]=='yes':
+  if y[i]=="yes":
    for j in range(0,n):
      if specific_h[j]!=x[i][j]:
       if specific_h[j]=='0':
@@ -34,7 +34,7 @@ def Candi(x,y):
   if y[i]=='no':
     print("negative",x[i],"\n")
     for j in range(n):
-       if specific_h[j]!=x[i][j] & specific_h[j]!='?':
+       if specific_h[j]!=x[i][j] and specific_h[j]!='?':
         g_h=['?' for i in range(n)]
         if specific_h[j]=='0':
          g_h='?'
@@ -45,7 +45,7 @@ def Candi(x,y):
          print(general_h)
  for i in range(len(general_h)):
   for j in range (n):
-   if general_h[i][j]!='?'& specific_h[j]=='?':
+   if general_h[i][j]!='?' and specific_h[j]=='?':
       del general_h[i]
  return specific_h,general_h
 S_final,G_final=Candi(x,y)

@@ -1,0 +1,53 @@
+from google.colab import files
+uploaded=files.upload()
+import pandas as pd
+import numpy as np
+import io
+df2=pd.read_csv(io.BytesIO(uploaded['labml.csv']),header=None )
+print(df2)
+df2.loc[0:6]
+df2.iloc[0 :,-1]
+x=np.array(df2.iloc[0: , :-1])
+print(x)
+y=np.array(df2.iloc[0: ,-1])
+print(y)
+print("the maximum specific hypothesis: ['0','0','0','0','0','0']")
+print("the maximum general hypothesis: ['?','?','?','?','?','?']")
+m,n=x.shape
+print(m,n)
+def Candi(x,y):
+ print("the initialization of specific and general hypothesis:")
+ specific_h=['0']*(n)
+ print(specific_h)
+ g_h=['?' for i in range(n)]
+ general_h=[]
+ print(g_h,"\n")
+ for i in range(m):
+  if y[i]=='yes':
+   for j in range(0,n):
+     if specific_h[j]!=x[i][j]:
+      if specific_h[j]=='0':
+         specific_h=x[i].copy()
+      else:
+         specific_h[j]='?'
+     print(specific_h)
+  if y[i]=='no':
+    print("negative",x[i],"\n")
+    for j in range(n):
+       if specific_h[j]!=x[i][j] & specific_h[j]!='?':
+        g_h=['?' for i in range(n)]
+        if specific_h[j]=='0':
+         g_h='?'
+         general_h.append(g_h)
+        else:
+         g_h[j]= specific_h[j]
+         general_h.append(g_h)
+         print(general_h)
+ for i in range(len(general_h)):
+  for j in range (n):
+   if general_h[i][j]!='?'& specific_h[j]=='?':
+      del general_h[i]
+ return specific_h,general_h
+S_final,G_final=Candi(x,y)
+print("the specific hypothesis:",S_final,sep="\n")
+print("the general hypothesis:",G_final,sep="\n")

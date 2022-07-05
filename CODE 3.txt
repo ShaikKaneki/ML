@@ -1,0 +1,32 @@
+from google.colab import files
+uploaded=files.upload()
+import pandas as pd
+import numpy as np
+import io
+df2=pd.read_csv(io.BytesIO(uploaded['labml.csv']),header=None )
+print(df2)
+x=np.array(df2.iloc[0: , :-1])
+print(x)
+y=np.array(df2.iloc[0: ,-1])
+print(y)
+print("the maximum specific hypothesis: ['0','0','0','0','0','0']")
+print("the maximum general hypothesis: ['?','?','?','?','?','?']")
+m,n=X.shape
+print(m,n)
+print("the initialization of hypothesis:")
+hypothesis=['0']*(n-1)
+print(hypothesis)
+
+print("Find-s:for the train dataset: ")
+print(X)
+for i in range(0,m):
+ if y[i]=='yes':
+  for j in range(0,n):
+   if X[i][j]!=hypothesis[j]:
+     if hypothesis[j]=='0':
+        hypothesis=X[i, :n]
+     else:
+        hypothesis[j]='?'
+print("the hypothesis {0} for the instance {0}=".format(i+1),hypothesis)
+print("the maximally specific hypothesis:")
+print(hypothesis)
